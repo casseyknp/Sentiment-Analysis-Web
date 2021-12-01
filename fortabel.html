@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Analisis Sentimen</title>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="http://d3js.org/d3.v3.min.js"></script> 
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="https://d14fo0winaifog.cloudfront.net/plotly-basic.js"></script>
+<style>
+body {
+  font-family: Arial;
+  margin: 0;
+  text-align: center;
+  background-color: #fff;
+  color: #000;
+  font-size: 14px;
+}
+.header {
+  padding: 15px;
+  text-align: center;
+  background: #34626c;
+  color: #fff;
+  font-size: 10px;
+}
+.pchart {
+    position: relative;
+    right: 30%;
+    }
+.lchart {
+    position: relative;
+    right; 30%;
+    }
+    
+.napaform {    
+  text-align: right;
+  background: #34626c;
+  color: #fff;
+  font-size: 10px;
+}
+.napaform h1 {
+  font-family: poppins;
+}
+
+.formStyle { 
+  background-color: #cfd3ce;
+  padding-top: 7px; 
+  width: 200px; 
+  height: 24px;
+  margin-bottom: 20px; 
+  border-bottom-width: 1px; 
+  border-bottom-style: solid; 
+  border-bottom-color: #ecf0f1; 
+  border-top-style: none; 
+  border-right-style: none; 
+  border-left-style: none; 
+  font-size: 16px;
+  font-weight: 100;
+  color: #ffffff;
+}
+
+.formButton {
+	background-color:#333456;
+	display:inline-block;
+	color: #fff;
+	font-size:20px;
+	font-weight: 500;
+	text-decoration:none;
+    height: 35px;
+    margin-right: 30px;
+}
+.formButton:hover {
+	background-color: #5c6e91;
+  color:#ffffff;
+}
+
+.formButton:active {
+	position:relative;
+	top:3px;
+}
+    
+input:focus {
+  outline: none;
+}
+table, th, td {
+  border: 1px;
+  border-collapse: collapse;
+}
+th {
+  padding: 15px;
+  text-align: center;    
+} 
+td {
+  padding: 15px;
+  text-align: left;    
+} 
+#t01 tr:nth-child(even) {
+  background-color: #eee;
+}
+#t01 tr:nth-child(odd) {
+ background-color: #fff;
+}
+#t01 th {
+  background-color: #eee;
+  color: black;
+
+}
+
+</style>
+    <div class="header">
+        <h1>ANALISA SENTIMEN PENGGUNA SOSIAL MEDIA MENGGUNAKAN METODE</h1>
+        <h1><i> LONG SHORT TERM MEMORY</i></h1>
+    </div>
+    <div class="napaform">
+    <form method = "POST">
+          <input types="text" class="formStyle" name="nama">
+          <button type="submit" class="formButton" >Cari</button>
+    </form>
+    </div>
+</head>
+<body>
+    
+
+    <div class="pchart" id="pie" d3pie="0.2.1" >
+        <script>
+        var data = {{ graph_values|safe }};
+        layout = {{ layout|safe }};
+        Plotly.newPlot('pie', data, layout);
+        </script>
+    </div>
+    
+    <div id="chart" class="lchart"  >
+    <script type="text/javascript">
+        var graphs = {{graphJSON| safe}};
+        Plotly.plot('chart',graphs, {});        
+
+    </script>
+    </div>
+        <div class="a">
+        <table id="t01">
+            <thead>
+             <tr>
+                 {%for header in headings %}
+                     <th> {{ header }}</th>
+                 {% endfor %}
+             </tr>
+            </thead>
+            <tbody>
+            {% for row in data %}
+                <tr>
+                    <td>{{ row[0] }} </td>
+                    <td>{{ row[1] }} </td>
+                    <td>{{ row[2] }} </td>
+                    <td>{{ row[3] }} </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</body>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
